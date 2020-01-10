@@ -1,32 +1,55 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app :style="color">
+  <Navbar />
+  <router-view />
+    <v-content>
+    </v-content>
+    <BottomBar />
+  </v-app>
 </template>
 
+<script>
+import Navbar from './components/layout/Navbar';
+import BottomBar from './components/layout/BottomBar';
+import Fab from './components/layout/Fab'
+
+import firebase from 'firebase'
+
+export default {
+  name: 'App',
+
+  components: {
+    Navbar,
+    BottomBar,
+    Fab
+  },
+
+  data(){
+    return {
+      color: 'background-color: #F46F6F;',
+      user: null,
+    }
+  },
+  created(){
+    // let user = firebase.auth().currentUser
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user){
+        this.user = user
+        this.color = 'background-color: #DDDADA;'
+      } else {
+        this.user = null
+        this.color = 'background-color: #F46F6F;'
+      }
+    })
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+#app{
+  color: white;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.fab-position{
+  margin-top: 100px;
 }
 </style>
