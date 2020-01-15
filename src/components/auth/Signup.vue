@@ -1,6 +1,6 @@
 <template>
     <div class="signup">
-        <v-card outlined raised>
+        <v-card outlined raised fixed>
             <v-form>
                 <h2>Sign up</h2> 
                 <div class="field">
@@ -12,7 +12,6 @@
                 <div class="field">
                     <v-text-field 
                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" 
-                    type="password" 
                     placeholder="Password" 
                     :type="show1 ? 'text' : 'password'"
                     counter
@@ -23,7 +22,6 @@
                 <p v-if="feedback">{{ feedback }}</p>
                 <div class="field">
                     <v-btn 
-                    min-width="250" 
                     color="primary"
                     @click="signup">Sign up</v-btn>
                 </div>

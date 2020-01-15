@@ -8,7 +8,7 @@
                 <div class="progress">
                     <v-progress-circular
                     :size="150"
-                    :width="7"
+                    :width="6"
                     color="#3BD547"
                     :rotate="-90"
                     :value="value">
@@ -25,7 +25,7 @@ export default {
     name: 'RadialCard',
     data(){
         return{
-            progress: 2000,
+            progress: 200,
             goal: 4000,
             interval: {},
             value: 0,
@@ -54,7 +54,7 @@ export default {
 .radial .progress{
     display: flex;
     justify-content: center;
-    margin-top: 16px;
+    margin-bottom: 16px
 }
 .radial .title{
     display: flex;

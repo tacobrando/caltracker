@@ -24,14 +24,14 @@
             <p v-if="feedback" class="red-text">{{ feedback }}</p>
             <div class="login-btn">
                 <v-btn 
-                width="265"
+                block
                 @click="login" 
                 color="primary">Login</v-btn>
             </div>
             <div class="signup-link">
                 <router-link 
                 style="text-decoration: none;" 
-                :to="{ name: 'Signup' }"><v-btn width="265">Don't have an account?</v-btn></router-link>
+                :to="{ name: 'Signup' }"><v-btn block>Don't have an account?</v-btn></router-link>
             </div>
         </v-form>
     </div>
@@ -70,15 +70,12 @@ export default {
 <style>
 .login{
     display: flex;
-    margin-top: 20px;
     justify-content: center;
 }
 .login h2{
     font-size: 3.4em;
 }
 .caltracker-logo{
-    display: flex;
-    align-content: center;
     max-width: 250px;
 }
 .login-btn{
@@ -93,7 +90,8 @@ export default {
     height: 70px;;
 }
 .red-text{
-    color: red
+    color: red;
+    max-width: 250px
 }
 
 </style>

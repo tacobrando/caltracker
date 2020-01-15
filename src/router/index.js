@@ -5,6 +5,7 @@ import Login from '@/components/auth/Login.vue'
 import Signup from '@/components/auth/Signup.vue'
 import Home from '@/components/home/Home.vue'
 import Profile from '@/components/profile/Profile.vue'
+import PageDoesNotExist from '@/components/errors/PageDoesNotExist.vue'
 
 
 Vue.use(VueRouter)
@@ -36,6 +37,11 @@ const routes = [
     name: 'Signup',
     component: Signup
   },
+  {
+    path: '*',
+    name:'PageDoesNotExist', 
+    component: PageDoesNotExist
+  }
 ]
 
 
@@ -56,7 +62,7 @@ router.beforeEach((to, from, next) => {
       // no user signed in redirect to login
       next({ name: 'Login' })
     }
-  } else {
+  } else{
     next()
   }
 })
