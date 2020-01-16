@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .error h1{
     left: 0;
     font-size: 4em;

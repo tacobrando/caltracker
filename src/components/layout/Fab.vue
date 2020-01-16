@@ -20,7 +20,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .fab-btn{
     display: flex;
     justify-content: center;

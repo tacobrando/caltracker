@@ -84,7 +84,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .signup{
     padding: 20px;
 }

@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .home{
     margin-top: 60px;
 }

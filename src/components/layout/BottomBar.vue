@@ -72,7 +72,7 @@ import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
   }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .bottom-nav{
     display: flex;
     align-content: space-around
