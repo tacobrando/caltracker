@@ -11,7 +11,6 @@
 <script>
 import Navbar from './components/layout/Navbar';
 import BottomBar from './components/layout/BottomBar';
-import Fab from './components/layout/Fab'
 
 import firebase from 'firebase'
 
@@ -21,7 +20,6 @@ export default {
   components: {
     Navbar,
     BottomBar,
-    Fab
   },
 
   data(){
@@ -48,5 +46,11 @@ export default {
 <style>
 #app{
   color: white;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 </style>

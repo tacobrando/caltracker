@@ -47,8 +47,8 @@ import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
     name: 'BottomBar',
     components: {
         QrcodeStream,
-        QrcodeDropZone,
-        QrcodeCapture
+        // QrcodeDropZone,
+        // QrcodeCapture
     },
     data() {
       return{

@@ -45,10 +45,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.profile{
-    margin-top: 55px;
-}
-
 .profile .container{
     display: flex;
     align-items: center;

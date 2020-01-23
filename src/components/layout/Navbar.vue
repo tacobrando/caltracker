@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <v-app-bar v-if="user" :color="color" max-height="50px" fixed>
+    <v-app-bar v-if="user" height="55px" :color="color" fixed>
         <v-app-bar-nav-icon class="nav-icon" color="white" @click.stop="drawer = !drawer" />
           <v-toolbar-title class="white-text" v-if="this.$route.name == 'Profile'">Profile</v-toolbar-title>
           <v-toolbar-title class="white-text" v-if="this.$route.name == 'Home'">Home</v-toolbar-title>
@@ -121,6 +121,9 @@ export default {
 }
 .avatar{
   border: 3px solid white;
+}
+.navbar{
+  margin-bottom: 60px;
 }
 </style>
 
