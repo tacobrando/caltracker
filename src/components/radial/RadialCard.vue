@@ -47,14 +47,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.radial{
-    position: relative;
-}
-
 .radial .progress{
     display: flex;
     justify-content: center;
-    margin-bottom: 16px
+    margin-bottom: 10px
 }
 .radial .title{
     display: flex;
