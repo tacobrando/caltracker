@@ -1,11 +1,11 @@
 
 <template>
-  <div class="add-breakfast">
+  <div class="add-cal">
       <v-card>
           <div class="container">
               <v-spacer></v-spacer>
             <div class="title">
-                <v-card-title>Breakfast</v-card-title>
+                <v-card-title>{{ this.meal }}</v-card-title>
             </div>
             <v-spacer></v-spacer>
             <div class="btn-container" >
@@ -17,7 +17,7 @@
             </div>
           </div>
       </v-card>
- <v-dialog
+      <v-dialog
         v-model="dialog"
         fullscreen
         hide-overlay
@@ -29,14 +29,14 @@
           <v-btn icon dark @click="dialog = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <v-toolbar-title>Add Breakfast</v-toolbar-title>
+          <v-toolbar-title>Add {{ this.meal }}</v-toolbar-title>
         </v-toolbar>
           <div class="search-bar">
               <v-text-field label="Search for food....." v-model="search" @keyup.enter="getFood"/>
           </div>
           <div class="list">
             <ul class="items">
-                <li @click="dialog2 = true" v-for="(food, i) in foods" :key="i" class="food-list">
+                <li @click="addFood(food.food.label, food.food.nutrients.ENERC_KCAL), dialog = false" v-for="(food, i) in foods" :key="i" class="food-list">
                     <span>{{ ellipsify(food.food.label) }}</span>
                     <span>{{ Math.round(food.food.nutrients.ENERC_KCAL) }} kcal</span>
                 </li>
@@ -53,7 +53,8 @@ import db from '@/firebase/init'
 import firebase from 'firebase'
 
 export default {
-    name: 'AddBreakfast',
+    name: 'AddCal',
+    props: ['meal'],
     data(){
         return{
             foodName: null,
@@ -61,6 +62,7 @@ export default {
             dialog: false,
             search: '',
             foods: [],
+            user: []
         }
     },
     methods:{
@@ -82,18 +84,38 @@ export default {
                 return str;
             }
         },
-        addFood(){
-            
-        }
-    }
+        addFood(food, cal){
+            db.collection('diary').add({
+                food: food,
+                kcal: Math.round(cal),
+                user_id: this.user.user_id,
+                meal: this.meal,
+                timestamp: Date.now()
+            }).catch(err => {
+                console.log(err)
+            })
+        },
+    },
+    created(){
+    let ref = db.collection('users')
+    // get current user
+    ref.where('user_id', '==', firebase.auth().currentUser.uid).get()
+    .then(snapshot => {
+      snapshot.forEach(doc => {
+        this.user = doc.data(),
+        this.user.id = doc.id
+        this.user.username = this.user.username.charAt(0).toUpperCase() + this.user.username.slice(1)
+      })
+    })
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.add-breakfast{
+.add-cal{
     position: relative;
 }
-.add-breakfast .container{
+.add-cal .container{
     display: flex;
     justify-content: center;
     padding: 0px;

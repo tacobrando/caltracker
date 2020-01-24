@@ -40,7 +40,7 @@ export default {
         this.user.username = this.user.username.charAt(0).toUpperCase() + this.user.username.slice(1)
       })
     })
-  }
+  },
 }
 </script>
 

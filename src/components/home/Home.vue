@@ -4,35 +4,31 @@
             <RadialCard />
         </div>
         <div class="card">
-            <AddBreakfast />
+            <AddCal meal="Breakfast" />
         </div>
         <div class="card">
-            <AddLunch />
+            <AddCal meal="Lunch" />
         </div>
         <div class="card">
-            <AddDinner />
+            <AddCal meal="Dinner" />
         </div>
         <div class="card">
-            <AddOther />
+            <AddCal meal="Other..." />
         </div>
     </div>
 </template>
 
 <script>
 import RadialCard from '../radial/RadialCard'
-import AddBreakfast from '../tracker/AddBreakfast'
-import AddLunch from '../tracker/AddLunch'
-import AddDinner from '../tracker/AddDinner'
-import AddOther from '../tracker/AddOther'
+import AddCal from './AddCal'
+import moment from 'moment'
 
 export default {
     name: 'Home',
     components: {
         RadialCard,
-        AddBreakfast,
-        AddLunch,
-        AddDinner,
-        AddOther
+        AddCal,
+
     },
     data(){
         return{
