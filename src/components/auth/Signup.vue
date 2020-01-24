@@ -17,7 +17,7 @@
                     counter
                     @click:append="show1 = !show1"
                     v-model="password"
-                    @submit.prevent="signup" />
+                    @keyup.enter="signup" />
                 </div>
                 <p v-if="feedback">{{ feedback }}</p>
                 <div class="field">

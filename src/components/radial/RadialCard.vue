@@ -50,7 +50,7 @@ export default {
 .radial .progress{
     display: flex;
     justify-content: center;
-    margin-bottom: 10px
+    padding-bottom: 15px;
 }
 .radial .title{
     display: flex;

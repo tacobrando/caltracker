@@ -19,13 +19,13 @@
                 placeholder="Password" 
                 type="password"
                 v-model="password"
-                @submit.prevent="login" />
+                @keyup.enter="login" />
             </div>
             <p v-if="feedback" class="red-text">{{ feedback }}</p>
             <div class="login-btn">
                 <v-btn 
                 block
-                @click="login" 
+                @click="login"
                 color="primary">Login</v-btn>
             </div>
             <div class="signup-link">
