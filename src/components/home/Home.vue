@@ -157,6 +157,7 @@ ul {
 li {
     display: flex;
     justify-content: space-between;
+    margin-top: -1px;
     padding: 2px;
     border: 1px solid #aaa;
     margin-left: -24px;
@@ -173,6 +174,6 @@ li {
     font-weight: 500
 }
 .meal{
-    margin-bottom: 1px;
+    margin-bottom: 2px;
 }
 </style>

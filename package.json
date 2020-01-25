@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "epic-spinners": "^1.1.0",
     "firebase": "^7.7.0",
     "firebase-tools": "^7.12.1",
     "moment": "^2.24.0",

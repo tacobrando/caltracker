@@ -72,7 +72,7 @@ export default {
 .login{
     display: flex;
     justify-content: center;
-    margin-top: -50px;
+    margin-top: -30px;
 }
 .login h2{
     font-size: 3.4em;
