@@ -6,6 +6,7 @@ import Signup from '@/components/auth/Signup.vue'
 import Home from '@/components/home/Home.vue'
 import Profile from '@/components/profile/Profile.vue'
 import PageDoesNotExist from '@/components/errors/PageDoesNotExist.vue'
+import About from '@/components/about/About.vue'
 
 
 Vue.use(VueRouter)
@@ -19,6 +20,14 @@ const routes = [
     requiresAuth: true
     },
   },
+  {
+    path: '/about',
+    name: 'About',
+    component: About,
+    meta: {
+      requiresAuth: true
+      },
+    },
   {
   path: '/profile',
   name: 'Profile',

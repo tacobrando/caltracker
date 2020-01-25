@@ -17,7 +17,7 @@
                     
         <v-btn
         large
-        @click="overlay = !overlay"
+        @click="this.message"
         color="#3BB1E5">
             <v-icon class="icon-white">mdi-camera</v-icon>
         </v-btn>
@@ -58,6 +58,11 @@ import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
         profile: null,
         overlay: false
       }
+    },
+    methods: {
+        message(){
+            return alert('Coming soon!')
+        }
     },
     created(){
     // let user = firebase.auth().currentUser

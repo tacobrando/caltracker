@@ -5,9 +5,9 @@ import store from './store'
 import './registerServiceWorker'
 import vuetify from './plugins/vuetify';
 import firebase from 'firebase'
-import VueChatScroll from 'vue-chat-scroll'
-
-Vue.use(VueChatScroll)
+import VuePageTransition from 'vue-page-transition'
+ 
+Vue.use(VuePageTransition)
 
 Vue.config.productionTip = false
 let app = null;

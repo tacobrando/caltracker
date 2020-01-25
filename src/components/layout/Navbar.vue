@@ -6,7 +6,6 @@
           <v-toolbar-title class="white-text" v-if="this.$route.name == 'Home'">Home</v-toolbar-title>
     </v-app-bar>
     <v-navigation-drawer 
-    absolute
     temporary
     v-model="drawer" app>
       <div class="background">
@@ -35,7 +34,7 @@
         </div>
         <v-divider></v-divider>
         <v-list dense>
-          <v-list-item link>
+          <v-list-item to="/about" @click="drawer = false">
             <v-list-item-icon>
               <v-icon>{{ this.items[0].icon }}</v-icon>
             </v-list-item-icon>

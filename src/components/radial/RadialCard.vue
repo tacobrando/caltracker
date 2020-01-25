@@ -3,7 +3,7 @@
         <v-card>
             <div class="container">
                 <div class="title">
-                    <v-card-title>Daily Goal:</v-card-title>
+                    <v-card-title>Daily Goal</v-card-title>
                 </div>
                 <div class="progress">
                     <v-progress-circular
@@ -23,10 +23,11 @@
 <script>
 export default {
     name: 'RadialCard',
+    props: ['total'],
     data(){
         return{
-            progress: 200,
-            goal: 4000,
+            progress: 0,
+            goal: 5000,
             interval: {},
             value: 0,
             test: null,
@@ -40,8 +41,12 @@ export default {
             if(this.value === 100){
                 return (this.value = 100)
             }
+            this.progress = this.goal - this.total
             this.test = (this.goal - this.progress)/this.goal * 100
             this.value = this.test
+            if(this.progress < 0){
+                this.progress = 0
+            }
         }, 0)
     }
 }
@@ -58,5 +63,6 @@ export default {
 }
 .radial .black-text{
     color: black;
+    text-align: center
 }
 </style>

@@ -1,18 +1,18 @@
 <template>
-    <div class="profile">
-        <v-card>
-            <div class="container">
-                <div class="title">
-                    <v-avatar class="avatar" size="80">
-                        <img src="https://randomuser.me/api/portraits/men/81.jpg">
-                    </v-avatar>
+        <div class="profile">
+            <v-card>
+                <div class="container">
+                    <div class="title">
+                        <v-avatar class="avatar" size="80">
+                            <img src="https://randomuser.me/api/portraits/men/81.jpg">
+                        </v-avatar>
+                    </div>
+                    <div class="user">
+                        <h2 v-if="user.username">{{ user.username }}</h2>
+                    </div>
                 </div>
-                <div class="user">
-                    <h2>{{ user.username }}</h2>
-                </div>
-            </div>
-        </v-card>
-    </div>
+            </v-card>
+        </div>
 </template>
 
 <script>
@@ -53,7 +53,5 @@ export default {
 .user{
     margin: 20px;
 }
-
-
 
 </style>

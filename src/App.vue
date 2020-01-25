@@ -1,7 +1,9 @@
 <template>
   <v-app :style="color">
   <Navbar />
+  <vue-page-transition name="fade">
   <router-view />
+  </vue-page-transition>
     <v-content>
     </v-content>
     <BottomBar />
