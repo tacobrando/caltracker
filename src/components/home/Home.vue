@@ -4,9 +4,9 @@
             <RadialCard :total="total" />
         </div>
         <div>
-            <AddCal class="meal" meal="Breakfast" />
+            <AddCal class="meal" :diary="diary" meal="Breakfast" />
             <ul v-for="(item, i) in diary" :key="i">
-                <li v-if="item.meal == 'Breakfast'">
+                <li v-if="item.meal == 'Breakfast' && item.user_id == user.user_id">
                     <span class="black-text">{{ item.food }}</span>
                     <span class="black-text">{{ item.kcal }}</span>
                 </li>
@@ -17,9 +17,9 @@
             </div>
         </div>
         <div>
-            <AddCal class="meal" meal="Lunch" />
+            <AddCal class="meal" :diary="diary" meal="Lunch" />
             <ul v-for="(item, i) in diary" :key="i">
-                <li v-if="item.meal == 'Lunch'">
+                <li v-if="item.meal == 'Lunch' && item.user_id == user.user_id">
                     <span class="black-text">{{ item.food }}</span>
                     <span class="black-text">{{ item.kcal }}</span>
                 </li>
@@ -30,9 +30,9 @@
             </div>
         </div>
         <div>
-            <AddCal class="meal" meal="Dinner" />
+            <AddCal class="meal" :diary="diary" meal="Dinner" />
             <ul v-for="(item, i) in diary" :key="i">
-                <li v-if="item.meal == 'Dinner'">
+                <li v-if="item.meal == 'Dinner' && item.user_id == user.user_id">
                     <span class="black-text">{{ item.food }}</span>
                     <span class="black-text">{{ item.kcal }}</span>
                 </li>
@@ -43,9 +43,9 @@
             </div>
         </div>
         <div>
-            <AddCal class="meal" meal="Other..." />
+            <AddCal class="meal" :diary="diary" meal="Other..." />
             <ul v-for="(item, i) in diary" :key="i">
-                <li v-if="item.meal == 'Other...'">
+                <li v-if="item.meal == 'Other...' && item.user_id == user.user_id">
                     <span class="black-text">{{ item.food }}</span>
                     <span class="black-text">{{ item.kcal }}</span>
                 </li>
@@ -75,11 +75,12 @@ export default {
     data(){
         return{
             diary: [],
-            total: null,
-            breakfast: null,
-            lunch: null,
-            dinner: null,
-            other: null
+            total: 0,
+            breakfast: 0,
+            lunch: 0,
+            dinner: 0,
+            other: 0,
+            user: [],
         }
     },
     methods: {
@@ -91,41 +92,53 @@ export default {
                 return str;
             }
         },
-       addTotal(){
+        updates(){
+            let ref = db.collection('users').doc(this.user.id).collection('diary').orderBy('timestamp')
+            ref.onSnapshot(snapshot => {
+                snapshot.docChanges().forEach(change => {
+                    if(change.type == 'added'){
+                        let doc = change.doc.data()
+                        this.diary.push(doc)
+                        this.diary.id = change.doc.id
+                        this.uid = doc.user_id
+                        this.total = 0
+                        this.breakfast = 0
+                        this.lunch = 0
+                        this.dinner = 0
+                        this.other = 0
+                    }
+                })
+                this.addTotal()
+            })
+        },
+    addTotal(){
             this.diary.forEach(doc => {
-                this.total += doc.kcal
-                switch(doc.meal){
-                    case 'Breakfast':
-                        this.breakfast += doc.kcal
-                        break
-                    case 'Lunch':
-                        this.lunch += doc.kcal
-                        break
-                    case 'Dinner':
-                        this.dinner += doc.kcal
-                        break
-                    case 'Other...':
-                        this.other += doc.kcal
+                if(doc.user_id == this.user.user_id){
+                    this.total += doc.kcal
+                }
+                if(doc.meal == 'Breakfast' && doc.user_id == this.user.user_id){
+                    this.breakfast += doc.kcal
+                }else if(doc.meal == 'Lunch' && doc.user_id == this.user.user_id){
+                    this.lunch += doc.kcal
+                }else if(doc.meal == 'Dinner' && doc.user_id == this.user.user_id){
+                    this.dinner += doc.kcal
+                }else if(doc.meal == 'Other...' && doc.user_id == this.user.user_id){
+                    this.other += doc.kcal
                 }
             })  
         }
     },
     mounted(){
-        let ref = db.collection('diary')
-        ref.onSnapshot(snapshot => {
-            snapshot.docChanges().forEach(change => {
-                if(change.type == 'added'){
-                    let doc = change.doc.data()
-                    this.diary.push(doc)
-                    this.diary.id = change.doc.id
-                    this.total = null
-                    this.breakfast = null
-                    this.lunch = null
-                    this.dinner = null
-                    this.other = null
-                }
+            let ref = db.collection('users')
+            // get current user
+            ref.where('user_id', '==', firebase.auth().currentUser.uid).get()
+            .then(snapshot => {
+            snapshot.forEach(doc => {
+                this.user = doc.data(),
+                this.user.id = doc.id
+                this.user.username = this.user.username.charAt(0).toUpperCase() + this.user.username.slice(1)
             })
-                this.addTotal()
+            this.updates()
         })
     },
 }

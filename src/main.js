@@ -6,6 +6,9 @@ import './registerServiceWorker'
 import vuetify from './plugins/vuetify';
 import firebase from 'firebase'
 import VuePageTransition from 'vue-page-transition'
+import VueLazyload from 'vue-lazyload'
+ 
+Vue.use(VueLazyload)
  
 Vue.use(VuePageTransition)
 

@@ -9,7 +9,7 @@
         >
         
             <v-btn 
-            to="/"
+            @click="navHome"
             value="home">
             <span>Home</span>
             <v-icon>mdi-home</v-icon>
@@ -62,6 +62,9 @@ import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
     methods: {
         message(){
             return alert('Coming soon!')
+        },
+        navHome(){
+            this.$router.push('/')
         }
     },
     created(){

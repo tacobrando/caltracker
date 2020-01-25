@@ -2,7 +2,7 @@
     <div class="login container">
         <v-form>
             <div class="caltracker-logo">
-                <v-img src="@/assets/logo.png" />
+                <img src="@/assets/logo.png" />
             </div>
             <h2>CalTracker</h2>
             <div class="field">
@@ -46,6 +46,7 @@ export default {
         return{
             email: null,
             password: null,
+            image: '@/assets/logo.png',
             feedback: null,
         }
     },
@@ -71,12 +72,13 @@ export default {
 .login{
     display: flex;
     justify-content: center;
+    margin-top: -50px;
 }
 .login h2{
     font-size: 3.4em;
 }
-.caltracker-logo{
-    max-width: 250px;
+img{
+    max-width: 260px;
 }
 .login-btn{
     display: flex;
@@ -87,11 +89,12 @@ export default {
     text-align: center
 }
 .field{
-    height: 70px;;
+    height: 70px;
 }
 .red-text{
     color: red;
     max-width: 250px
 }
+
 
 </style>

@@ -1,4 +1,3 @@
-
 <template>
   <div class="add-cal">
       <v-card>
@@ -57,7 +56,7 @@ export default {
     props: ['meal'],
     data(){
         return{
-            foodName: null,
+            info: null,
             kcal: null,
             dialog: false,
             search: '',
@@ -66,7 +65,7 @@ export default {
         }
     },
     methods:{
-        async getFood(){
+        getFood(){
             let appKey = "8d9f344d9eba7a39027545d7e41169e9"
             let appId = "4705f5ec"
             let search = this.search.split(' ').join('%20')
@@ -85,7 +84,7 @@ export default {
             }
         },
         addFood(food, cal){
-            db.collection('diary').add({
+            db.collection('users').doc(this.user.id).collection('diary').add({
                 food: food,
                 kcal: Math.round(cal),
                 user_id: this.user.user_id,
@@ -96,7 +95,7 @@ export default {
             })
         },
     },
-    created(){
+    mounted(){
     let ref = db.collection('users')
     // get current user
     ref.where('user_id', '==', firebase.auth().currentUser.uid).get()
