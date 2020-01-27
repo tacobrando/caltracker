@@ -24,7 +24,7 @@
             <ul v-for="(item, i) in diary" :key="i">
                 <li class="food-list" v-if="item.meal == 'Lunch' && item.user_id == user.user_id">
                     <div class="group">
-                        <v-icon v-if="edit" class="delete-btn">mdi-minus-circle</v-icon>
+                        <v-icon v-if="edit" @click="deleteFood(item,i)" class="delete-btn">mdi-minus-circle</v-icon>
                         <span class="black-text">{{ item.food }}</span>
                     </div>
                     <span class="black-text">{{ item.kcal }}</span>
@@ -40,7 +40,7 @@
             <ul v-for="(item, i) in diary" :key="i">
                 <li class="food-list" v-if="item.meal == 'Dinner' && item.user_id == user.user_id">
                     <div class="group">
-                        <v-icon v-if="edit" class="delete-btn">mdi-minus-circle</v-icon>
+                        <v-icon v-if="edit" @click="deleteFood(item,i)" class="delete-btn">mdi-minus-circle</v-icon>
                         <span class="black-text">{{ item.food }}</span>
                     </div>
                     <span class="black-text">{{ item.kcal }}</span>
@@ -56,7 +56,7 @@
             <ul v-for="(item, i) in diary" :key="i">
                 <li class="food-list" v-if="item.meal == 'Other...' && item.user_id == user.user_id">
                     <div class="group">
-                        <v-icon v-if="edit" class="delete-btn">mdi-minus-circle</v-icon>
+                        <v-icon v-if="edit" @click="deleteFood(item,i)" class="delete-btn">mdi-minus-circle</v-icon>
                         <span class="black-text">{{ item.food }}</span>
                     </div>
                     <span class="black-text">{{ item.kcal }}</span>
