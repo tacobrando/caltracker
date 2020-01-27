@@ -13,6 +13,11 @@
                         mdi-plus-circle-outline
                     </v-icon>
                 </v-btn>
+                <v-btn icon @click="this.passProp">
+                    <v-icon>
+                        mdi-dots-vertical
+                    </v-icon>
+                </v-btn>
             </div>
           </div>
       </v-card>
@@ -62,10 +67,13 @@ export default {
             dialog: false,
             search: '',
             foods: [],
-            user: []
+            user: [],
         }
     },
     methods:{
+        passProp(event){
+            this.$emit('clicked')
+        },
         getFood(){
             let appKey = "8d9f344d9eba7a39027545d7e41169e9"
             let appId = "4705f5ec"
@@ -124,7 +132,7 @@ export default {
     margin-top: 15px;
 }
 ul {
-  list-style-type: none;
+    list-style-type: none;
 }
 .search-bar{
     margin: 10px

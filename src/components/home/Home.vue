@@ -4,10 +4,13 @@
             <RadialCard :total="total" />
         </div>
         <div>
-            <AddCal class="meal" :diary="diary" meal="Breakfast" />
+            <AddCal @clicked="editBtn" class="meal" :diary="diary" meal="Breakfast" />
             <ul v-for="(item, i) in diary" :key="i">
-                <li v-if="item.meal == 'Breakfast' && item.user_id == user.user_id">
-                    <span class="black-text">{{ item.food }}</span>
+                <li class="food-list" v-if="item.meal == 'Breakfast' && item.user_id == user.user_id">
+                    <div class="group">
+                        <v-icon v-if="edit" @click="deleteFood(item,i)" class="delete-btn">mdi-minus-circle</v-icon>
+                        <span class="black-text">{{ item.food }}</span>
+                    </div>
                     <span class="black-text">{{ item.kcal }}</span>
                 </li>
             </ul>
@@ -19,8 +22,11 @@
         <div>
             <AddCal class="meal" :diary="diary" meal="Lunch" />
             <ul v-for="(item, i) in diary" :key="i">
-                <li v-if="item.meal == 'Lunch' && item.user_id == user.user_id">
-                    <span class="black-text">{{ item.food }}</span>
+                <li class="food-list" v-if="item.meal == 'Lunch' && item.user_id == user.user_id">
+                    <div class="group">
+                        <v-icon v-if="edit" class="delete-btn">mdi-minus-circle</v-icon>
+                        <span class="black-text">{{ item.food }}</span>
+                    </div>
                     <span class="black-text">{{ item.kcal }}</span>
                 </li>
             </ul>
@@ -32,8 +38,11 @@
         <div>
             <AddCal class="meal" :diary="diary" meal="Dinner" />
             <ul v-for="(item, i) in diary" :key="i">
-                <li v-if="item.meal == 'Dinner' && item.user_id == user.user_id">
-                    <span class="black-text">{{ item.food }}</span>
+                <li class="food-list" v-if="item.meal == 'Dinner' && item.user_id == user.user_id">
+                    <div class="group">
+                        <v-icon v-if="edit" class="delete-btn">mdi-minus-circle</v-icon>
+                        <span class="black-text">{{ item.food }}</span>
+                    </div>
                     <span class="black-text">{{ item.kcal }}</span>
                 </li>
             </ul>
@@ -45,8 +54,11 @@
         <div>
             <AddCal class="meal" :diary="diary" meal="Other..." />
             <ul v-for="(item, i) in diary" :key="i">
-                <li v-if="item.meal == 'Other...' && item.user_id == user.user_id">
-                    <span class="black-text">{{ item.food }}</span>
+                <li class="food-list" v-if="item.meal == 'Other...' && item.user_id == user.user_id">
+                    <div class="group">
+                        <v-icon v-if="edit" class="delete-btn">mdi-minus-circle</v-icon>
+                        <span class="black-text">{{ item.food }}</span>
+                    </div>
                     <span class="black-text">{{ item.kcal }}</span>
                 </li>
             </ul>
@@ -81,9 +93,20 @@ export default {
             dinner: 0,
             other: 0,
             user: [],
+            edit: false,
         }
     },
     methods: {
+        editBtn(){
+            switch (this.edit) {
+                case true:
+                    this.edit = false
+                    break
+                case false:
+                    this.edit = true
+                    break
+            }
+        },
         ellipsify(str){
             if (str.length > 25) {
                 return (str.substring(0, 25) + "...");
@@ -92,23 +115,33 @@ export default {
                 return str;
             }
         },
+        deleteFood(item, index){
+            db.collection('users').doc(this.user.id).collection('diary').doc(this.diary[index].id).delete()
+            this.diary.splice(index, 1)
+        },
         updates(){
             let ref = db.collection('users').doc(this.user.id).collection('diary').orderBy('timestamp')
             ref.onSnapshot(snapshot => {
                 snapshot.docChanges().forEach(change => {
                     if(change.type == 'added'){
                         let doc = change.doc.data()
-                        this.diary.push(doc)
-                        this.diary.id = change.doc.id
+                        this.diary.push({
+                            food: doc.food,
+                            kcal: doc.kcal,
+                            meal: doc.meal,
+                            timestamp: doc.timestamp,
+                            user_id: doc.user_id,
+                            id: change.doc.id
+                        })
                         this.uid = doc.user_id
                         this.total = 0
                         this.breakfast = 0
                         this.lunch = 0
                         this.dinner = 0
                         this.other = 0
+                        this.addTotal()
                     }
                 })
-                this.addTotal()
             })
         },
     addTotal(){
@@ -154,13 +187,21 @@ export default {
 ul {
   list-style-type: none;
 }
-li {
+.food-list{
     display: flex;
     justify-content: space-between;
     margin-top: -1px;
-    padding: 2px;
+    padding: 3px;
     border: 1px solid #aaa;
     margin-left: -24px;
+}
+.delete-btn{
+    height: 3px;
+    color: red;
+}
+.delete-btn:active{
+    color: rgba(255, 0, 0, 0.459)
+   
 }
 .home{
     margin-bottom: 60px
@@ -168,7 +209,7 @@ li {
 .total{
     display: flex;
     justify-content: space-between;
-    padding: 2px
+    padding: 3px
 }
 .bold{
     font-weight: 500
