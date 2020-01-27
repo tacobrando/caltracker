@@ -20,7 +20,7 @@
             </div>
         </div>
         <div>
-            <AddCal class="meal" :diary="diary" meal="Lunch" />
+            <AddCal @clicked="editBtn" class="meal" :diary="diary" meal="Lunch" />
             <ul v-for="(item, i) in diary" :key="i">
                 <li class="food-list" v-if="item.meal == 'Lunch' && item.user_id == user.user_id">
                     <div class="group">
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div>
-            <AddCal class="meal" :diary="diary" meal="Dinner" />
+            <AddCal @clicked="editBtn" class="meal" :diary="diary" meal="Dinner" />
             <ul v-for="(item, i) in diary" :key="i">
                 <li class="food-list" v-if="item.meal == 'Dinner' && item.user_id == user.user_id">
                     <div class="group">
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div>
-            <AddCal class="meal" :diary="diary" meal="Other..." />
+            <AddCal @clicked="editBtn" class="meal" :diary="diary" meal="Other..." />
             <ul v-for="(item, i) in diary" :key="i">
                 <li class="food-list" v-if="item.meal == 'Other...' && item.user_id == user.user_id">
                     <div class="group">
